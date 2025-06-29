@@ -105,4 +105,7 @@ window.onload = function () {
   createAddQuoteForm();
   populateCategories();
   showRandomQuote();
+
+    document.getElementById('newQuote').addEventListener('click', showRandomQuote);
+
 };

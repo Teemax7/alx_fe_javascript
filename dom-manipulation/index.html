@@ -2,49 +2,65 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dynamic Quote Generator</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      padding: 20px;
       max-width: 600px;
-      margin: auto;
+      margin: 30px auto;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
     }
     #quoteDisplay {
-      background-color: #f0f0f0;
+      background: #fff;
       padding: 15px;
       margin: 20px 0;
-      border-left: 5px solid #007acc;
+      border-left: 5px solid #4CAF50;
     }
-    input {
-      margin: 5px;
-      padding: 5px;
+    input, select, button {
+      margin: 5px 0;
+      padding: 10px;
+      width: 100%;
+      box-sizing: border-box;
     }
     button {
-      padding: 6px 10px;
-      margin-top: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
     }
   </style>
 </head>
 <body>
   <h1>Dynamic Quote Generator</h1>
 
-  <div id="quoteDisplay">Click "Show New Quote" to get started.</div>
-  <button id="newQuote">Show New Quote</button>
+  <div id="quoteDisplay"></div>
 
-  <h3>Add a New Quote</h3>
-  <div id="quoteFormContainer"></div>
-   <div id="quoteDisplay">Click "Show New Quote" to get started.</div>
-  <button id="newQuote">Show New Quote</button>
+  <button id="newQuote" onclick="showRandomQuote()">Show New Quote</button>
 
-  <h3>Add a New Quote</h3>
   <div id="quoteFormContainer"></div>
 
-  <h3>Import/Export Quotes</h3>
-  <button onclick="exportToJsonFile()">Export Quotes</button>
-  <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" />
+  <div>
+    <label for="categoryFilter">Filter by Category:</label>
+    <select id="categoryFilter" onchange="filterQuotes()">
+      <option value="all">All Categories</option>
+    </select>
+  </div>
 
+  <div style="margin-top: 20px;">
+    <button onclick="exportToJson()">Export Quotes</button><br/><br/>
+    <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" />
+  </div>
 
   <script src="script.js"></script>
 </body>

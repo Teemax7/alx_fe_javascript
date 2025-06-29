@@ -136,25 +136,28 @@ function importFromJsonFile(event) {
 }
 
 // Sync quotes with server (simulation)
-function fetchQuotesFromServer() {
-  fetch("https://jsonplaceholder.typicode.com/posts?_limit=5")
-    .then(res => res.json())
-    .then(data => {
-      const newQuotes = data.map(post => ({
-        text: post.title,
-        category: "Server"
-      }));
-      quotes.push(...newQuotes);
-      saveQuotes();
-      populateCategories();
-      filterQuotes();
-      alert("Quotes synced from server.");
-    })
-    .catch(err => {
-      console.error("Error fetching quotes:", err);
-      alert("Failed to sync with server.");
-    });
+async function fetchQuotesFromServer() {
+  try {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts?_limit=5");
+    const data = await response.json();
+
+    const newQuotes = data.map(post => ({
+      text: post.title,
+      category: "Server"
+    }));
+
+    quotes.push(...newQuotes);
+    saveQuotes();
+    populateCategories();
+    filterQuotes();
+
+    alert("Quotes synced from server.");
+  } catch (error) {
+    console.error("Error syncing with server:", error);
+    alert("Failed to sync with server.");
+  }
 }
+
 
 // Event listener for 'Show New Quote'
 newQuoteBtn.addEventListener("click", showRandomQuote);

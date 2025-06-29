@@ -49,6 +49,20 @@ function addQuote() {
 
   quotes.push({ text, category });
   saveQuotes();
+  fetch('https://jsonplaceholder.typicode.com/posts', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ text, category })
+})
+.then(response => response.json())
+.then(data => {
+  console.log('Quote posted to server:', data);
+})
+.catch(error => {
+  console.error('Failed to post quote:', error);
+});
 
   if (!Array.from(categoryFilter.options).some(opt => opt.value === category)) {
     const option = document.createElement("option");
@@ -62,6 +76,7 @@ function addQuote() {
 
   populateCategories();
   filterQuotes();
+  
 }
 
 // Create dynamic add quote form
@@ -157,7 +172,39 @@ async function fetchQuotesFromServer() {
     alert("Failed to sync with server.");
   }
 }
+// Simulate posting to server
+async function syncQuotes() {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+    const serverQuotes = await response.json();
 
+    // Simulate simple conflict resolution (prefer server quotes)
+    localStorage.setItem('quotes', JSON.stringify(serverQuotes));
+    quotes = serverQuotes;
 
+    populateCategories(); // refresh UI
+    filterQuotes(); // refresh quote display
+    notifyUser('Quotes synced from server.');
+  } catch (error) {
+    console.error('Error syncing with server:', error);
+  }
+}
+setInterval(syncQuotes, 60000); // sync every 60 seconds
+// Event listener for category filter change
+categoryFilter.addEventListener("change", filterQuotes);
 // Event listener for 'Show New Quote'
 newQuoteBtn.addEventListener("click", showRandomQuote);
+function notifyUser(message) {
+  const notice = document.createElement('div');
+  notice.textContent = message;
+  notice.style.background = '#e0ffe0';
+  notice.style.color = '#0a460a';
+  notice.style.border = '1px solid #0a460a';
+  notice.style.padding = '8px';
+  notice.style.margin = '10px 0';
+  document.body.insertBefore(notice, document.body.firstChild);
+
+  setTimeout(() => notice.remove(), 4000);
+}
+// Initial call to display a random quote
+showRandomQuote();

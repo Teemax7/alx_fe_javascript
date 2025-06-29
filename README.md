@@ -1,2 +1,1 @@
-# alx_fe_javascript
-# alx_fe_javascript
+Building a dynamic content generator with advanced DOM manipulation

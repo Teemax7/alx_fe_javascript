@@ -17,17 +17,14 @@
   <div id="quoteDisplay"></div>
   <button id="newQuote">Show New Quote</button>
 
-  <!-- Add New Quote -->
-  <div>
-    <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
-    <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
-    <button onclick="addQuote()">Add Quote</button>
-  </div>
+  <!-- Form will be inserted dynamically -->
+  <div id="addQuoteFormContainer"></div>
 
-  <!-- Import/Export Buttons -->
+  <!-- Import/Export + Sync -->
   <div>
     <button onclick="exportQuotes()">Export Quotes</button>
     <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" />
+    <button onclick="fetchQuotesFromServer()">Sync with Server</button>
   </div>
 
   <script src="script.js"></script>

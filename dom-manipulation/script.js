@@ -184,7 +184,7 @@ async function syncQuotes() {
 
     populateCategories(); // refresh UI
     filterQuotes(); // refresh quote display
-    notifyUser('Quotes synced from server.');
+    notifyUser('Quotes synced from server!');
   } catch (error) {
     console.error('Error syncing with server:', error);
   }
